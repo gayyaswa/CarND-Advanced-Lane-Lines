@@ -2,6 +2,9 @@ import numpy as np
 import cv2
 import glob
 import os
+import matplotlib.pyplot as pyplot
+import matplotlib.image as mpimg
+#%matplotlib qt
 
 # Read in an image
 out_dir_name = 'output_images/binary_lanes'
@@ -111,13 +114,38 @@ for fname in images:
     line_bin_image[((gradx == 1) & (grady == 1)) | (c_binary == 1)] = 255
 
     img_height, img_width, channels = img.shape
+    img_size = (img.shape[1], img.shape[0])
+    print(img_size)
 
-    #define trapezoid area of interest
-    trap_bottom_width = .76
-    trap_mid_width = .08
-    trap_height = 0.62
-    bottom_trim = .935
-    src = np.float32([[img_width * (.5 - trap_mid_width/2), img_height * trap_height], [img_width *(.5 + trap_mid_width/2), img_height * trap_height ], ])
+    #plot the image and dots to identify the region of interest
+
+
+
+    #define region of interest
+    src = np.float32(
+        [[790, 500]  #top right
+        ,[1075, 680] #bottom right
+        ,[220, 680]  #bottom left
+        ,[480, 500]  #top left
+        ]
+    )
+
+    offset = img_height * 0.25
+
+    dst = np.float32(
+        [[offset, 0]
+        ,[img_height-offset, 0]
+        ,[img_height-offset, img_width]
+        ,[offset, img_width]
+        ]
+    )
+
+    # Given src and dst points, calculate the perspective transform matrix
+    M = cv2.getPerspectiveTransform(src, dst)
+    # Warp the image using OpenCV warpPerspective()
+    warped = cv2.warpPerspective(line_bin_image, M, (img_width,img_height))
+
+
     os.makedirs(os.path.dirname(os.path.join(out_dir_name, '')), exist_ok=True)
     full_name = os.path.join(out_dir_name, os.path.basename(fname))
     #print(full_name)
