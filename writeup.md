@@ -25,7 +25,7 @@ The code for this step is contained in `cameracaliberation.py`
 
 Camera is prone to create distortions while capturing images from the real word and in this step followed the lecture and corrected the distortions of th test images by caliberating the camera using chessboard images. The "object points", which will be the (x, y, z) coordinates of the chessboard corners in the world. The chessboard is fixed on the (x, y) plane at z=0, such that the object points are the same for each calibration image.  Thus, `objp` is just a replicated array of coordinates, and `objpoints` will be appended with a copy of it every time the chessboard corners is successfuly detected in a test image.  `imgpoints` will be appended with the (x, y) pixel position of each of the corners in the image plane with each successful chessboard detection.
 
-![input image](camera_cal/calibration1.jpg)  | ![output image](output_images/draw_chess_board/calibration6.jpg)
+![input image](camera_cal/calibration6.jpg)  | ![output image](output_images/draw_chess_board/calibration6.jpg)
 ---------------------------------------------| -----------------------------------------------------------------
 
 The output `objpoints` and `imgpoints` are used to compute the camera calibration and distortion coefficients using the `cv2.calibrateCamera()` function refer `undistortimages.py`.  The distortion correction is applied to the test image using the `cv2.undistort()` function to obtain this result: 
@@ -116,5 +116,5 @@ Here's a [link to my video result](./project_video.mp4)
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-My goal was to have the projest work on the non challenge video and was able to successfuly complete it with the above mentioned steps. I'll try on the challenge video by making the pipeline robust remembering the last n best fit lines can smoothen the current frame line computation. Also I am using the histogram technique to identify the lanes and this involves using minpix of 50 to recenter the window and for larger curve this might not met and result in imperfect polynomial fit. Probably using convolution would help in challenge video to solve this problem.
+My goal was to have the projest work on the non challenge video and was able to successfuly complete it with the above mentioned steps. I'll try on the challenge video by making the pipeline robust remembering the last n best fit lines can smoothen the current frame line computation. Also I am using the histogram technique to identify the lanes and this involves using minpix of 50 to recenter the window and for larger curve this might not be met and resuling in imperfect polynomial fit. Probably using convolution would help in challenge video to solve this problem.
 
