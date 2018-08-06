@@ -31,22 +31,29 @@ The goals / steps of this project are the following:
 
 #### 1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
 
-The code for this step is contained in .cameracaliberation.py'
+The code for this step is contained in `cameracaliberation.py`
 
 Camera is prone to create distortions while capturing images from the real word and in this step followed the lecture and corrected the distortions of th test images by caliberating the camera using chessboard images. The "object points", which will be the (x, y, z) coordinates of the chessboard corners in the world. The chessboard is fixed on the (x, y) plane at z=0, such that the object points are the same for each calibration image.  Thus, `objp` is just a replicated array of coordinates, and `objpoints` will be appended with a copy of it every time the chessboard corners is successfuly detected in a test image.  `imgpoints` will be appended with the (x, y) pixel position of each of the corners in the image plane with each successful chessboard detection.
 
-![input image](camera_cal/calibration1.jpg)  ![output image](output_images/chessundistorted/calibration1.jpg)
+![input image](camera_cal/calibration1.jpg)  | ![output image](output_images/draw_chess_board/calibration6.jpg)
+---------------------------------------------| -----------------------------------------------------------------
 
-The output `objpoints` and `imgpoints` are used to compute the camera calibration and distortion coefficients using the `cv2.calibrateCamera()` function.  The distortion correction is applied to the test image using the `cv2.undistort()` function to obtain this result: 
+The output `objpoints` and `imgpoints` are used to compute the camera calibration and distortion coefficients using the `cv2.calibrateCamera()` function refer `undistortimages.py`.  The distortion correction is applied to the test image using the `cv2.undistort()` function to obtain this result: 
 
-![alt text][image1]
+![input image](camera_cal/calibration1.jpg)  | ![output image](output_images/chessundistorted/calibration1.jpg)
+---------------------------------------------| -----------------------------------------------------------------
+
 
 ### Pipeline (single images)
 
 #### 1. Provide an example of a distortion-corrected image.
 
-To demonstrate this step, I will describe how I apply the distortion correction to one of the test images like this one:
-![alt text][image2]
+Below is one of the distortion corrected test image where the white vehicle is displayed correctly after distiortion correction refer `undistortimages.py` for opencv code used to correct distortion:
+
+![input image](test_images/test1.jpg)  | ![output image](output_images/undistorted/test1.jpg)
+-------------------------------------- | -----------------------------------------------------------------
+
+
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
