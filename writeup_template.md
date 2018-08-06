@@ -17,10 +17,6 @@ The goals / steps of this project are the following:
 
 [video1]: ./output1_tracked.mp4 "Video"
 
-## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
-
-### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
-
 ### Camera Calibration
 
 #### 1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
@@ -99,7 +95,7 @@ The traditional histogram technique is used instead of the convolution technique
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-The radius of curnvatue is computed as suggested in the lecture using the formula mentioned in [here] https://www.intmath.com/applications-differentiation/8-radius-curvature.php. The `measure_curvature_real`  function has the code to compute radius in `laneimageprocessor.py`
+The radius of curvature is computed as suggested in the lecture using the formula mentioned in [here] https://www.intmath.com/applications-differentiation/8-radius-curvature.php. The `measure_curvature_real`  function has the code to compute radius in `laneimageprocessor.py`
 
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
