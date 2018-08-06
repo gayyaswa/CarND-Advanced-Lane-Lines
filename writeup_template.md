@@ -55,7 +55,7 @@ As suggested in the lecture video a combination of color and gradient thresholds
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
-The code for perspective transform is included in a function called `pipeline()`, which appears in lines 64 through 79 in the file `laneimageprocessor.py`.  The `pipeline` function takes as inputs an image (`img`) after combine threshold image processing step and hard coded src and dst points is choosen as below for the transformation
+The code for perspective transform is included in a function called `pipeline()`, which appears in lines 64 through 79 in the file `laneimageprocessor.py`.  The `pipeline` function takes as inputs an image (`img`) after combine threshold image processing step and hard coded src and dst points is chosen as below for the transformation
 
 ```python
 src = np.float32(
@@ -88,7 +88,7 @@ The perspective transform was verfied working as expected by drawing the `src` a
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
-The traditional histogram technique is used instead of the convolution technique to identify the pixel corrspond to lane images and those pixels would be reflected as peak values in the histogram. Once those are identified a secoond order polynomial function is used to fit the line for the lanes. Once the lanes are identified this information is used to prevent exhaustive search in consecutive frames by provinga margin of 100 pixels. The code for lane line fitting is in `tracker.py` functions 'search_around_poly', 'find_lane_pixels' and fit_poly'
+The traditional histogram technique is used instead of the convolution technique to identify the pixel corrspond to lane images and those pixels would be reflected as peak values in the histogram. Once those are identified a second order polynomial function is used to fit the line for the lanes. Once the lanes are identified this information is used to prevent exhaustive search in consecutive frames by providing a margin of 100 pixels to search. The code for lane line fitting is in `tracker.py` functions 'search_around_poly', 'find_lane_pixels' and fit_poly'
 
 ![input image](test_images/test1.jpg)  | ![output image](output_images/tracker/test1.jpg)
 -------------------------------------- | -----------------------------------------------------------------
@@ -116,5 +116,5 @@ Here's a [link to my video result](./project_video.mp4)
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-My goal was to have the projest work on the non challenge video and was able to successfuly comple with the above mentioned steps. I'll try on the challenge video by making the pipeline robust remembeing the last n lines and smoothen the current frame line computation. Also I am using the histogram technique to identify the lanes and this involves using minpix of 50 to recenter the window and for larger curve this might not met and result in imperfect polynomial fit. Probably using convolution would help in challenge video to solive this problem.
+My goal was to have the projest work on the non challenge video and was able to successfuly complete it with the above mentioned steps. I'll try on the challenge video by making the pipeline robust remembeing the last n lines and smoothen the current frame line computation. Also I am using the histogram technique to identify the lanes and this involves using minpix of 50 to recenter the window and for larger curve this might not met and result in imperfect polynomial fit. Probably using convolution would help in challenge video to solve this problem.
 
