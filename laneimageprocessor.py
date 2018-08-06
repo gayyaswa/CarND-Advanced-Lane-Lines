@@ -2,7 +2,6 @@ import cv2
 import pickle
 import numpy as np
 import glob
-import os
 
 from tracker import Tracker
 from combinethresholds import CombineThreshold
@@ -114,12 +113,14 @@ class LaneImageProcessor:
         #add radius and offset to the result
         #For straight road larger radius are being caculated so added a threhold and simply output "Straight Road"
         # for those cases
-        if radius_of_curvature > 1500:
-            cv2.putText(result, 'Straight Road ahead', (50, 50),
-                        cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
-        else:
-            cv2.putText(result, 'Radius of curvature = ' + str(round(radius_of_curvature, 3)) + ' (m)', (50, 50),
-                    cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
+        # if radius_of_curvature > 1500:
+        #     cv2.putText(result, 'Straight Road ahead', (50, 50),
+        #                 cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
+        # else:
+        #     cv2.putText(result, 'Radius of curvature = ' + str(round(radius_of_curvature, 3)) + ' (m)', (50, 50),
+        #             cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
+        cv2.putText(result, 'Radius of curvature = ' + str(round(radius_of_curvature, 3)) + ' (m)', (50, 50),
+                                 cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
         cv2.putText(result, 'Vehicle is ' + str(abs(round(center_diff, 3))) + 'm ' + side_pos + ' of center',
                     (50, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
 
