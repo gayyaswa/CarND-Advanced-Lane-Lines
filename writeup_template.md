@@ -15,12 +15,6 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./output_images/undistorted/test1.jpg "Undistorted"
-[image2]: ./test_images/test2.jpg "Road Transformed"
-[image3]: ./output_images/binary_lanes/test2.jpg "Binary Example"
-[image4]: ./output_images/bird_eye/test2.jpg "Warp Example"
-[image5]: ./output_images/tracker/test2.jpg "Fit Visual"
-[image6]: ./output_images/draw_lane/test2.jpg "Output"
 [video1]: ./output1_tracked.mp4 "Video"
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
@@ -57,13 +51,15 @@ Below is one of the distortion corrected test image where the white vehicle is d
 
 #### 2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 
-I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at lines # through # in `another_file.py`).  Here's an example of my output for this step.  (note: this is not actually from one of the test images)
+As suggested in the lecture video a combination of color and gradient thresholds to generate a binary image (thresholding steps at lines # 46 # 87 `combinethresholds.py`). The 'S' and 'V' color channels are used to make sure the lanes are still present after this step and also gradient absolute theshold is applied as well and following is the output after this step:
 
-![alt text][image3]
+![input image](test_images/test1.jpg)  | ![output image](output_images/combinethresholds/test1.jpg)
+-------------------------------------- | -----------------------------------------------------------------
+![input image](test_images/test4.jpg)  | ![output image](output_images/combinethresholds/test4.jpg)
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
-The code for my perspective transform includes a function called `warper()`, which appears in lines 1 through 8 in the file `example.py` (output_images/examples/example.py) (or, for example, in the 3rd code cell of the IPython notebook).  The `warper()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I chose the hardcode the source and destination points in the following manner:
+The code for perspective transform is included in a function called `pipeline()`, which appears in lines 64 through 79 in the file `laneimageprocessor.py`.  The `pipeline` function takes as inputs an image (`img`) after combine threshold image processing step and hard coded src and dst points is choosen as below for the transformation
 
 ```python
 src = np.float32(
@@ -87,15 +83,19 @@ This resulted in the following source and destination points:
 | 1127, 720     | 960, 720      |
 | 695, 460      | 960, 0        |
 
-I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
+The perspective transform was verfied working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
 
-![alt text][image4]
+![input image](test_images/test1.jpg)  | ![output image](output_images/bird_eye/test1.jpg)
+-------------------------------------- | -----------------------------------------------------------------
+![input image](test_images/test4.jpg)  | ![output image](output_images/binary_lanes/test4.jpg)
+
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
 Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
 
-![alt text][image5]
+![input image](test_images/test1.jpg)  | ![output image](output_images/tracker/test1.jpg)
+-------------------------------------- | -----------------------------------------------------------------
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
@@ -105,7 +105,8 @@ I did this in lines # through # in my code in `my_other_file.py`
 
 I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  Here is an example of my result on a test image:
 
-![alt text][image6]
+![input image](test_images/test2.jpg)  | ![output image](output_images/draw_lane/test2.jpg)
+-------------------------------------- | -----------------------------------------------------------------
 
 ---
 
