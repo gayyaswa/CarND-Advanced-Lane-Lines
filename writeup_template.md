@@ -116,5 +116,5 @@ Here's a [link to my video result](./project_video.mp4)
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-My goal was to have the projest work on the non challenge video and was able to successfuly complete it with the above mentioned steps. I'll try on the challenge video by making the pipeline robust remembeing the last n lines and smoothen the current frame line computation. Also I am using the histogram technique to identify the lanes and this involves using minpix of 50 to recenter the window and for larger curve this might not met and result in imperfect polynomial fit. Probably using convolution would help in challenge video to solve this problem.
+My goal was to have the projest work on the non challenge video and was able to successfuly complete it with the above mentioned steps. I'll try on the challenge video by making the pipeline robust remembering the last n best fit lines can smoothen the current frame line computation. Also I am using the histogram technique to identify the lanes and this involves using minpix of 50 to recenter the window and for larger curve this might not met and result in imperfect polynomial fit. Probably using convolution would help in challenge video to solve this problem.
 
