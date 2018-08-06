@@ -108,7 +108,7 @@ The binary lane image is unwarped opencv `warpPerspective()` back to the origina
 
 ### Pipeline (video)
 
-Here's a [link to my video result](./project_video.mp4)
+Here's a [link to my video result](./output1_tracked.mp4)
 
 ---
 
