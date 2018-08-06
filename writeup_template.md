@@ -20,7 +20,7 @@ The goals / steps of this project are the following:
 [image3]: ./output_images/binary_lanes/test2.jpg "Binary Example"
 [image4]: ./output_images/bird_eye/test2.jpg "Warp Example"
 [image5]: ./output_images/tracker/test2.jpg "Fit Visual"
-[image6]: ./output_images/draw_lanes/test2.jpg "Output"
+[image6]: ./output_images/draw_lane/test2.jpg "Output"
 [video1]: ./output1_tracked.mp4 "Video"
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
