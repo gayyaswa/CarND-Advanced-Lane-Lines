@@ -92,18 +92,18 @@ The perspective transform was verfied working as expected by drawing the `src` a
 
 #### 4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
-Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
+The traditional histogram technique is used instead of the convolution technique to identify the pixel corrspond to lane images and those pixels would be reflected as peak values in the histogram. Once those are identified a secoond order polynomial function is used to fit the line for the lanes. Once the lanes are identified this information is used to prevent exhaustive search in consecutive frames by provinga margin of 100 pixels. The code for lane line fitting is in `tracker.py` functions 'search_around_poly', 'find_lane_pixels' and fit_poly'
 
 ![input image](test_images/test1.jpg)  | ![output image](output_images/tracker/test1.jpg)
 -------------------------------------- | -----------------------------------------------------------------
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
-I did this in lines # through # in my code in `my_other_file.py`
+The radius of curnvatue is computed as suggested in the lecture using the formula mentioned in [here] https://www.intmath.com/applications-differentiation/8-radius-curvature.php. The `measure_curvature_real`  function has the code to compute radius in `laneimageprocessor.py`
 
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
-I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  Here is an example of my result on a test image:
+The binary lane image is unwarped opencv `warpPerspective()` back to the original image by using inverse matric coefficients based on perspective transformation. Also the image is augumented with Radius of curvature and the vehicle positon. This is implemented in 'laneimageprocessor.py' in in lines 77 through 127. Here is an example of my result on a test image:
 
 ![input image](test_images/test2.jpg)  | ![output image](output_images/draw_lane/test2.jpg)
 -------------------------------------- | -----------------------------------------------------------------
@@ -111,8 +111,6 @@ I implemented this step in lines # through # in my code in `yet_another_file.py`
 ---
 
 ### Pipeline (video)
-
-#### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
 
 Here's a [link to my video result](./project_video.mp4)
 
@@ -122,4 +120,5 @@ Here's a [link to my video result](./project_video.mp4)
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+My goal was to have the projest work on the non challenge video and was able to successfuly comple with the above mentioned steps. I'll try on the challenge video by making the pipeline robust remembeing the last n lines and smoothen the current frame line computation. Also I am using the histogram technique to identify the lanes and this involves using minpix of 50 to recenter the window and for larger curve this might not met and result in imperfect polynomial fit. Probably using convolution would help in challenge video to solive this problem.
+
