@@ -1,15 +1,5 @@
 import numpy as np
 import cv2
-import glob
-import os
-from tracker import Tracker
-
-
-# Read in an image
-out_dir_name_bin_lane = 'output_images/binary_lanes/'
-out_dir_name_bird_eye = 'output_images/bird_eye/'
-out_dir_name_draw_lane = 'output_images/draw_lane/'
-out_dir_name_lane_tracker = 'output_images/tracker/'
 
 class CombineThreshold:
     # Define a function that applies Sobel x and y,

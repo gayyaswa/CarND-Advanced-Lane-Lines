@@ -17,9 +17,34 @@ class LaneImageProcessor:
         dist_pickle = pickle.load(open("caliberation_dist_pickle.p", "rb"))
         self.mtx = dist_pickle["mtx"]
         self.dist = dist_pickle["dist"]
-        self.tracker = Tracker()
+        self.tracker = Tracker(False)
         self.combinethreshold = CombineThreshold()
+        self.ym_per_pix = 30 / 720  # meters per pixel in y dimension
+        self.xm_per_pix = 3.7 / 700  # meters per pixel in x dimension
         return
+
+    def measure_curvature_real(self, left_fit, right_fit, ploty):
+        '''
+        Calculates the curvature of polynomial functions in meters.
+        '''
+        # Define conversions in x and y from pixels space to meters
+
+
+        # Define y-value where we want radius of curvature
+        # We'll choose the maximum y-value, corresponding to the bottom of the image
+        y_eval = np.max(ploty)
+
+        left_fit_cr = np.polyfit(ploty * self.ym_per_pix, left_fit * self.xm_per_pix, 2)
+        right_fit_cr = np.polyfit(ploty * self.ym_per_pix, right_fit * self.xm_per_pix, 2)
+
+
+        left_curverad = ((1 + (2 * left_fit_cr[0] * y_eval * self.ym_per_pix + left_fit_cr[1]) ** 2) ** 1.5) / np.absolute(
+            2 * left_fit_cr[0])
+        right_curverad = ((1 + (2 * right_fit_cr[0] * y_eval * self.ym_per_pix + right_fit_cr[1]) ** 2) ** 1.5) / np.absolute(
+            2 * right_fit_cr[0])
+
+        return left_curverad, right_curverad
+
 
     def pipeline(self, img):
 
@@ -35,7 +60,7 @@ class LaneImageProcessor:
 
         img_height, img_width, channels = img.shape
         img_size = (img.shape[1], img.shape[0])
-        print(img_size)
+        #print(img_size)
 
         src = np.float32(
             [[(img_size[0] / 2) - 55, img_size[1] / 2 + 100],
@@ -76,6 +101,28 @@ class LaneImageProcessor:
         # Combine the result with the original image
         result = cv2.addWeighted(img, 1, newwarp, 0.3, 0)
 
+        left_curverad, right_curverad = self.measure_curvature_real(left_fitx, right_fitx, ploty)
+
+        radius_of_curvature = (left_curverad + right_curverad)/2
+        camera_center = (left_fitx[-1] + right_fitx[-1])/2
+        center_diff = (camera_center - newwarp.shape[1]/2) * self.xm_per_pix
+
+        side_pos = 'left'
+        if center_diff <=0:
+            side_pos = 'right'
+
+        #add radius and offset to the result
+        #For straight road larger radius are being caculated so added a threhold and simply output "Straight Road"
+        # for those cases
+        if radius_of_curvature > 1500:
+            cv2.putText(result, 'Straight Road ahead', (50, 50),
+                        cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
+        else:
+            cv2.putText(result, 'Radius of curvature = ' + str(round(radius_of_curvature, 3)) + ' (m)', (50, 50),
+                    cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
+        cv2.putText(result, 'Vehicle is ' + str(abs(round(center_diff, 3))) + 'm ' + side_pos + ' of center',
+                    (50, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
+
         return result
 
 
@@ -97,6 +144,5 @@ if __name__ == "__main__":
     clip1 = VideoFileClip(input_video)
     video_clip = clip1.fl_image(laneimageprocessor.pipeline)
     video_clip.write_videofile(output_video, audio=False)
-    print("main called")
 
 
